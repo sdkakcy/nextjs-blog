@@ -18,14 +18,14 @@ export default function Home({ allPostsData }) {
             <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
                 <h2 className={utilStyles.headingLg}>Blog</h2>
                 <ul className={utilStyles.list}>
-                    {allPostsData.map(({ id, date, title }) => (
+                    {allPostsData.map(({ id, name, slug, created_at }) => (
                         <li className={utilStyles.listItem} key={id}>
-                            <Link href={`/posts/${id}`}>
-                                <a>{title}</a>
+                            <Link href={`/posts/${slug}`}>
+                                <a>{name}</a>
                             </Link>
                             <br />
                             <small className={utilStyles.lightText}>
-                                <Date dateString={date} />
+                                <Date dateString={created_at} />
                             </small>
                         </li>
                     ))}
@@ -35,11 +35,12 @@ export default function Home({ allPostsData }) {
     )
 }
 
-export async function getStaticProps() {
-    const allPostsData = getSortedPostsData()
+export async function getServerSideProps() {
+    const allPostsData = await getSortedPostsData()
+
     return {
         props: {
             allPostsData
         }
     }
-} 
+}

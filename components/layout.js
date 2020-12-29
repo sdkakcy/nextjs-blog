@@ -4,10 +4,10 @@ import utilStyles from '../styles/utils.module.scss'
 import Link from 'next/link'
 
 const name = 'Sıddık Akçay'
-export const siteTitle = 'Next.js Sample Website'
+export const siteTitle = 'Blog - Sıddık Akçay'
 
 export default function Layout({ children, home }) {
-    return <div className={styles.container}>
+    return <div className="container max-w-5xl mx-auto p-5">
         <Head>
             <link rel="icon" href="/favicon.ico" />
             <meta
@@ -52,7 +52,7 @@ export default function Layout({ children, home }) {
                     </>
                 )}
         </header>
-        <main>{children}</main>
+        <main className="mt-5">{children}</main>
         {!home && (
             <div className={styles.backToHome}>
                 <Link href="/">

@@ -5,7 +5,9 @@ import { getSortedPostsData } from '../lib/posts'
 import Link from 'next/link'
 import Date from '../components/date'
 
-export default function Home({ allPostsData }) {
+export default function Home() {
+    const { loading, data } = getSortedPostsData();
+
     return (
         <Layout home>
             <Head>
@@ -17,8 +19,8 @@ export default function Home({ allPostsData }) {
 
             <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
                 <h2 className={utilStyles.headingLg}>Blog</h2>
-                <ul className={utilStyles.list}>
-                    {allPostsData.map(({ id, name, slug, created_at }) => (
+                {loading ? ("Lütfen bekleyin...") : (<ul className={utilStyles.list}>
+                    {data.map(({ id, name, slug, created_at }) => (
                         <li className={utilStyles.listItem} key={id}>
                             <Link href={`/posts/${slug}`}>
                                 <a>{name}</a>
@@ -29,18 +31,18 @@ export default function Home({ allPostsData }) {
                             </small>
                         </li>
                     ))}
-                </ul>
+                </ul>)}
             </section>
         </Layout>
     )
 }
 
-export async function getServerSideProps() {
-    const allPostsData = await getSortedPostsData()
+// export async function getServerSideProps() {
+//     const allPostsData = await getSortedPostsData()
 
-    return {
-        props: {
-            allPostsData
-        }
-    }
-}
+//     return {
+//         props: {
+//             allPostsData
+//         }
+//     }
+// }

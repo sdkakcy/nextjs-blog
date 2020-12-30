@@ -4,6 +4,8 @@ import utilStyles from '../styles/utils.module.scss'
 import { getSortedPostsData } from '../lib/posts'
 import Link from 'next/link'
 import Date from '../components/date'
+import ReactPlaceholder from 'react-placeholder';
+import "react-placeholder/lib/reactPlaceholder.css";
 
 export default function Home() {
     const { loading, data } = getSortedPostsData();
@@ -19,7 +21,7 @@ export default function Home() {
 
             <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
                 <h2 className={utilStyles.headingLg}>Blog</h2>
-                {loading ? ("Lütfen bekleyin...") : (<ul className={utilStyles.list}>
+                {loading ? <ReactPlaceholder showLoadingAnimation={true} type='text' ready={false} rows={10} /> : (<ul className={utilStyles.list}>
                     {data.map(({ id, name, slug, created_at }) => (
                         <li className={utilStyles.listItem} key={id}>
                             <Link href={`/posts/${slug}`}>

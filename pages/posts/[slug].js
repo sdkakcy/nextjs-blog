@@ -4,6 +4,8 @@ import Date from '../../components/date'
 import Layout from '../../components/layout'
 import utilStyles from '../../styles/utils.module.scss'
 import { getPostData, getSortedPostsData } from '../../lib/posts'
+import ReactPlaceholder from 'react-placeholder';
+import "react-placeholder/lib/reactPlaceholder.css";
 
 export default function Post({ data }) {
     const { loading, data: posts } = getSortedPostsData();
@@ -25,7 +27,7 @@ export default function Post({ data }) {
                 </div>
                 <div className="col-span-4 prose mt-5 md:mt-0">
                     <h2>Bunları Okudunuz mu?</h2>
-                    {loading ? ("Yükleniyor...") : (<ul>
+                    {loading ? <ReactPlaceholder showLoadingAnimation={true} type='text' ready={false} rows={10} /> : (<ul>
                         {posts.map(({ id, name, slug, created_at }) => (
                             slug !== data.slug ? (
                                 <li key={id}>
